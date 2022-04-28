@@ -5,16 +5,15 @@ import { RootState } from '../';
 import { PhotosAction, GET_PHOTOS, SET_ERROR } from '../types';
 
 const client = createClient(process.env.REACT_APP_PEXELS_API || '');
-// const client = createClient('dadsa');
 
-export const getPhotos = (page: number, searchQuery: string, onSuccess: () => void, onError: () => void): ThunkAction<void, RootState, null, PhotosAction> => {
+export const getPhotos = (page: number, searchQuery: string, onSuccess: () => void, onError: () => void, limit: number): ThunkAction<void, RootState, null, PhotosAction> => {
   return async dispatch => {
     try {
-      const photos: PhotosWithTotalResults | ErrorResponse = await client.photos.search({ page, query: searchQuery, per_page: 10});
+      const photos: PhotosWithTotalResults | ErrorResponse = await client.photos.search({ page, query: searchQuery, per_page: limit });
 
-      if("error" in photos) {
+      if ("error" in photos) {
         throw new Error(photos.error);
-      }else {
+      } else {
         dispatch({
           type: GET_PHOTOS,
           payload: {
@@ -33,14 +32,14 @@ export const getPhotos = (page: number, searchQuery: string, onSuccess: () => vo
   }
 }
 
-export const getCuratedPhotos = (page: number, onSuccess: () => void, onError: () => void): ThunkAction<void, RootState, null, PhotosAction> => {
+export const getCuratedPhotos = (page: number, onSuccess: () => void, onError: () => void, limit: number): ThunkAction<void, RootState, null, PhotosAction> => {
   return async dispatch => {
     try {
-      const photos: Photos | ErrorResponse = await client.photos.curated({ page, per_page: 10 });
+      const photos: Photos | ErrorResponse = await client.photos.curated({ page, per_page: limit });
 
-      if("error" in photos) {
+      if ("error" in photos) {
         throw new Error(photos.error);
-      }else {
+      } else {
         dispatch({
           type: GET_PHOTOS,
           payload: {

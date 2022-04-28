@@ -1,11 +1,17 @@
-import React, { FC, InputHTMLAttributes } from 'react';
+import React, { FC, InputHTMLAttributes } from "react";
 
-const Input: FC<InputHTMLAttributes<HTMLInputElement>> = ({ type = 'text', placeholder, value, name, onChange }) => {
-  return(
+const Input: FC<InputHTMLAttributes<HTMLInputElement>> = ({
+  type = "text",
+  placeholder,
+  value,
+  name,
+  onChange,
+}) => {
+  return (
     <div className="field mb-0">
       <div className="control">
-        <input 
-          className="input is-large"
+        <input
+          className="input"
           type={type}
           placeholder={placeholder}
           value={value}
@@ -18,6 +24,6 @@ const Input: FC<InputHTMLAttributes<HTMLInputElement>> = ({ type = 'text', place
       </div>
     </div>
   );
-}
+};
 
 export default Input;
