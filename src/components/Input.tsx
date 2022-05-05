@@ -8,20 +8,18 @@ const Input: FC<InputHTMLAttributes<HTMLInputElement>> = ({
   onChange,
 }) => {
   return (
-    <div className="field mb-0">
-      <div className="control">
-        <input
-          className="input"
-          type={type}
-          placeholder={placeholder}
-          value={value}
-          name={name}
-          id={name}
-          onChange={onChange}
-          required
-          autoComplete="off"
-        />
-      </div>
+    <div>
+      <input
+        className="input"
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        name={name}
+        id={name}
+        onChange={onChange}
+        required
+        autoComplete="off"
+      />
     </div>
   );
 };

@@ -3,38 +3,29 @@ import React, { FC, FormEvent, useState } from "react";
 import Input from "./Input";
 
 interface IntroProps {
-  onSearch: (value: string, value2: number) => void;
+  onSearch: (
+    query: string,
+    limit: number,
+    source: string,
+    attribution: string
+  ) => void;
 }
 
 const Intro: FC<IntroProps> = ({ onSearch }) => {
   const [search, setSearch] = useState("");
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(100);
+  const [source, setSource] = useState("pexels");
+  const [attribution, setAttribution] = useState("no");
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
-    onSearch(search, limit);
+    onSearch(search, limit, source, attribution);
     setSearch("");
-    setLimit(10);
+    setLimit(100);
   };
 
   return (
     <section>
-      {/* <div className="hero-body">
-        <div className="container">
-          <h1 className="title is-uppercase mb-6">
-            Best free stock photos in one place
-          </h1>
-          <form onSubmit={submitHandler} className="form">
-            <Input
-              value={search}
-              onChange={(e) => setSearch(e.currentTarget.value)}
-              placeholder="Search..."
-            />
-            <button className="button is-large is-danger ml-4">Search</button>
-          </form>
-        </div>
-      </div> */}
-
       <nav className="navbar navbar-dark bg-primary mb-5">
         <div className="container-fluid">
           <span className="navbar-brand mb-0 h1">
@@ -54,20 +45,25 @@ const Intro: FC<IntroProps> = ({ onSearch }) => {
                     <label className="form-label">Title</label>
                     <Input
                       value={search}
-                      onChange={(e) => setSearch(e.currentTarget.value)}
+                      onChange={(e) => setSearch(e.target.value)}
                       placeholder="Type here to search..."
                     />
                   </div>
                   <div className="mb-3 form-group">
                     <label className="form-label">Source</label>
                     <br />
-                    <select id="endpoint" name="endpoint">
-                      <option value="1" selected>
+                    <select
+                      id="endpoint"
+                      name="endpoint"
+                      onChange={(e) => {
+                        setSource(e.target.value);
+                      }}
+                    >
+                      <option value="pexels" selected>
                         Pexels
                       </option>
-                      <option value="2">
-                        Other source (not available yet)
-                      </option>
+                      <option value="wikimedia">WikiMedia Commons</option>
+                      <option value="wikipedia">Wikipedia</option>
                     </select>
                   </div>
                   <div className="mb-3 form-group">
@@ -77,35 +73,29 @@ const Intro: FC<IntroProps> = ({ onSearch }) => {
                       id="limit"
                       name="limit"
                       onChange={(e) => {
-                        // const selectedLimit = e.target.value;
                         setLimit(parseInt(e.target.value));
-                        console.log(typeof parseInt(e.target.value));
                       }}
                     >
-                      <option value={10} selected>
-                        10
-                      </option>
+                      <option value={10}>10</option>
                       <option value={25}>25</option>
                       <option value={50}>50</option>
-                      <option value={100}>100</option>
-                      {/* <option value="250">250</option>
-                      <option value="500">500</option>
-                      <option value="750">750</option>
-                      <option value="1000">1,000</option>
-                      <option value="1500">1,500</option>
-                      <option value="2000">2,000</option>
-                      <option value="4000">4,000</option>
-                      <option value="6000">6,000</option>
-                      <option value="8000">8,000</option>
-                      <option value="10000">10,000</option> */}
+                      <option value={100} selected>
+                        100
+                      </option>
                     </select>
                   </div>
                   <div className="mb-3 form-group">
                     <label className="form-label">Attribution</label>
                     <br />
-                    <select id="attr" name="attr">
-                      <option value="1">Yes</option>
-                      <option value="0" selected>
+                    <select
+                      id="attr"
+                      name="attr"
+                      onChange={(e) => {
+                        setAttribution(e.target.value);
+                      }}
+                    >
+                      <option value="yes">Yes</option>
+                      <option value="no" selected>
                         No (Royalty Free)
                       </option>
                     </select>

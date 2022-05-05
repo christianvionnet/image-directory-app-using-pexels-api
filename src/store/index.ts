@@ -2,9 +2,12 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
 import photoReducer from './reducers/photosReducer';
+import wikiPhotoReducer from './reducers/wikiPhotosReducer';
+
 
 const rootReducer = combineReducers({
-  photos: photoReducer
+  photos: photoReducer,
+  wikiPhotos: wikiPhotoReducer
 });
 
 const store = createStore(

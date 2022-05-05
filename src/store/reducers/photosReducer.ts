@@ -8,15 +8,16 @@ const initialState: PhotosState = {
 }
 
 const photoReducer = (state = initialState, action: PhotosAction): PhotosState => {
-  switch(action.type) {
+  switch (action.type) {
     case GET_PHOTOS:
       const { page, photos, total_results } = action.payload;
       let photosArr: Photo[] = [];
-      if(page > 1) {
+      if (page > 1) {
         photosArr = [...state.photos, ...photos];
-      }else {
+      } else {
         photosArr = photos;
       }
+      console.log(photosArr)
       return {
         ...state,
         photos: photosArr,
@@ -33,4 +34,4 @@ const photoReducer = (state = initialState, action: PhotosAction): PhotosState =
   }
 }
 
-export default photoReducer;
+export default photoReducer
