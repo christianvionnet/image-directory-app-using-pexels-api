@@ -13,36 +13,35 @@ const ImageResults: React.FC<Props> = ({
   wikiPhotos = [],
   imageClickHandler,
 }) => {
+  // console.log("wikiphotos: ", wikiPhotos);
   return (
     <ResponsiveMasonry columnsCountBreakPoints={{ 480: 2, 900: 5 }}>
-      <Masonry gutter={20}>
-        {/* {pexelsPhotos && pexelsPhotos.length > 0 ? (
-          <> */}
-        {/* {pexelsPhotos.map((photo) => (
-              <div key={photo.id} className="masonry-item">
-                <a href="/#" onClick={(e) => {}}>
-                  <img
-                    src={photo.src.large}
-                    alt=""
-                    onClick={(e) => imageClickHandler(e, photo)}
-                  />
-                </a>
-              </div>
-            ))}
-          </>
-        ) : (
-          <> */}
-        {wikiPhotos.length > 0 &&
-          wikiPhotos.map((photo, i) => (
-            <div key={i} className="masonry-item">
-              <a href="/#">
-                <img src={photo} alt="" />
+      {pexelsPhotos && pexelsPhotos.length > 0 ? (
+        <Masonry gutter={20}>
+          {pexelsPhotos.map((photo) => (
+            <div key={photo.id} className="masonry-item">
+              <a href="/#" onClick={(e) => {}}>
+                <img
+                  src={photo.src.large}
+                  alt=""
+                  onClick={(e) => imageClickHandler(e, photo)}
+                />
               </a>
             </div>
           ))}
-        {/* </>
-        )} */}
-      </Masonry>
+        </Masonry>
+      ) : (
+        <Masonry gutter={20}>
+          {wikiPhotos.length > 0 &&
+            wikiPhotos.map((photo, i) => (
+              <div key={i} className="masonry-item">
+                <a href="/#">
+                  <img src={photo.url} alt="" />
+                </a>
+              </div>
+            ))}
+        </Masonry>
+      )}
     </ResponsiveMasonry>
   );
 };

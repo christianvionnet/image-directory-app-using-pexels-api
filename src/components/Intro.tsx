@@ -3,25 +3,18 @@ import React, { FC, FormEvent, useState } from "react";
 import Input from "./Input";
 
 interface IntroProps {
-  onSearch: (
-    query: string,
-    limit: number,
-    source: string,
-    attribution: string
-  ) => void;
+  onSearch: (query: string, limit: number, source: string) => void;
 }
 
 const Intro: FC<IntroProps> = ({ onSearch }) => {
   const [search, setSearch] = useState("");
-  const [limit, setLimit] = useState(100);
+  const [limit, setLimit] = useState<number>(100);
   const [source, setSource] = useState("pexels");
-  const [attribution, setAttribution] = useState("no");
 
   const submitHandler = (e: FormEvent) => {
     e.preventDefault();
-    onSearch(search, limit, source, attribution);
+    onSearch(search, limit, source);
     setSearch("");
-    setLimit(100);
   };
 
   return (
@@ -80,26 +73,27 @@ const Intro: FC<IntroProps> = ({ onSearch }) => {
                       <option value={25}>25</option>
                       <option value={50}>50</option>
                       <option value={100} selected>
-                        100
+                        100 (max for Pexels)
                       </option>
+                      <option value={250}>250</option>
+                      <option value={500}>500</option>
+                      <option value={1000}>1000</option>
+                      <option value={2000}>2000</option>
                     </select>
                   </div>
-                  <div className="mb-3 form-group">
+                  {/* <div className="mb-3 form-group">
                     <label className="form-label">Attribution</label>
                     <br />
                     <select
                       id="attr"
                       name="attr"
-                      onChange={(e) => {
-                        setAttribution(e.target.value);
-                      }}
                     >
                       <option value="yes">Yes</option>
                       <option value="no" selected>
                         No (Royalty Free)
                       </option>
                     </select>
-                  </div>
+                  </div> */}
                   <button type="submit" className="btn btn-sm btn-primary">
                     Search
                   </button>
